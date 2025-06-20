@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   collection, 
@@ -17,48 +17,66 @@ import "./styles.css";
 const ADMIN_UID = "urH6ui5XIMZb7gTkeVbQu2saGjh1";
 
 export default function Chat() {
-  const { uid } = useParams();
+  const { uid: urlUid } = useParams();
+  const navigate = useNavigate();
+
+  // State declarations
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [error, setError] = useState(null);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [userNames, setUserNames] = useState({}); // Store user names here
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const messagesEndRef = useRef(null);
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [shouldReload, setShouldReload] = useState(false);
 
-  const currentUserId = auth.currentUser?.uid;
-  const isAdminChat = currentUserId === ADMIN_UID;
-  const chatWithId = isAdminChat ? uid : ADMIN_UID;
-  const conversationId = [currentUserId, chatWithId].sort().join('_');
-
+  // Auth state handling
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const unsubscribeAuth = auth.onAuthStateChanged(user => {
+      if (user) {
+        setCurrentUserId(user.uid);
+      } else {
+        navigate('/');
+      }
+    });
+    
+    return unsubscribeAuth;
+  }, [navigate]);
+
+  // Calculate conversation ID
+  const conversationId = useMemo(() => {
+    if (!currentUserId || !urlUid) return null;
+    
+    const isAdminChat = currentUserId === ADMIN_UID;
+    const chatWithId = isAdminChat ? urlUid : ADMIN_UID;
+    return [currentUserId, chatWithId].sort().join('_');
+  }, [currentUserId, urlUid]);
+
+  // Auto-scroll to bottom
+  useEffect(() => {
+    if (messages.length > 0) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
 
-  // Function to fetch user name
+  // Fetch user name
   const fetchUserName = async (userId) => {
     if (userId === ADMIN_UID) return "Admin";
-    
-    if (userNames[userId]) return userNames[userId];
     
     try {
       const userRef = doc(db, 'keepers', userId);
       const userSnapshot = await getDoc(userRef);
-      if (userSnapshot.exists()) {
-        const userName = userSnapshot.data().name;
-        setUserNames(prev => ({ ...prev, [userId]: userName }));
-        return userName;
-      }
-      return "User";
-    } catch (err) {
-      console.error("Error fetching user name:", err);
+      return userSnapshot.exists() ? userSnapshot.data().name : "User";
+    } catch {
       return "User";
     }
   };
 
+  // Load messages on every reload
   useEffect(() => {
-    if (!currentUserId) return;
+    if (!conversationId) return;
+
+    setIsLoading(true);
+    setMessages([]);
 
     const messagesRef = collection(db, 'chats');
     const q = query(
@@ -67,56 +85,57 @@ export default function Chat() {
       orderBy('createdAt', 'asc')
     );
 
-    const unsubscribe = onSnapshot(q, 
-      async (snapshot) => {
-        try {
-          const messagesWithNames = await Promise.all(
-            snapshot.docs.map(async (doc) => {
-              const data = doc.data();
-              const senderName = await fetchUserName(data.senderId);
-              return {
-                id: doc.id,
-                text: data.text,
-                senderId: data.senderId,
-                senderName: senderName,
-                createdAt: data.createdAt?.toDate() || new Date(),
-              };
-            })
-          );
+    const unsubscribe = onSnapshot(q, async (snapshot) => {
+      try {
+        const messagePromises = snapshot.docs.map(async (doc) => {
+          const data = doc.data();
+          const senderName = await fetchUserName(data.senderId);
+          
+          return {
+            id: doc.id,
+            text: data.text,
+            senderId: data.senderId,
+            senderName: senderName,
+            createdAt: data.createdAt?.toDate() || new Date(),
+          };
+        });
 
-          if (isInitialLoad) {
-            setMessages(messagesWithNames);
-            setIsInitialLoad(false);
-          } else {
-            const newMessages = messagesWithNames.filter(
-              msg => !messages.some(m => m.id === msg.id)
-            );
-            if (newMessages.length > 0) {
-              setMessages(prev => [...prev, ...newMessages]);
-            }
-          }
-          setError(null);
-        } catch (err) {
-          console.error("Error loading messages:", err);
-          setError("Error loading messages");
-        }
-      },
-      (err) => {
-        console.error("Firestore error:", err);
+        const newMessages = await Promise.all(messagePromises);
+        setMessages(newMessages);
+        
+        // Reset reload flag if messages load successfully
+        setShouldReload(false);
+      } catch (err) {
+        console.error("Error loading messages:", err);
+        // Set flag to reload if there's an error
+        setShouldReload(true);
+      } finally {
+        setIsLoading(false);
       }
-    );
+    });
 
-    return () => unsubscribe();
-  }, [currentUserId, conversationId, isInitialLoad]);
+    return unsubscribe;
+  }, [conversationId]);
 
+  // Reload page if needed
+  useEffect(() => {
+    if (shouldReload) {
+      console.log("Reloading page to fix loading issues...");
+      navigate(0); // Reloads the current page
+    }
+  }, [shouldReload, navigate]);
+
+  // Send message
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    if (!newMessage.trim() || isSending || !currentUserId) return;
+    if (!newMessage.trim() || isSending || !currentUserId || !conversationId) return;
 
     setIsSending(true);
     try {
-      let senderName = await fetchUserName(currentUserId);
-
+      const isAdminChat = currentUserId === ADMIN_UID;
+      const chatWithId = isAdminChat ? urlUid : ADMIN_UID;
+      const senderName = await fetchUserName(currentUserId);
+      
       await addDoc(collection(db, 'chats'), {
         text: newMessage,
         createdAt: serverTimestamp(),
@@ -127,27 +146,22 @@ export default function Chat() {
         conversationId: conversationId
       });
 
-      setMessages(prev => [...prev, {
-        id: Date.now().toString(),
-        text: newMessage,
-        senderId: currentUserId,
-        senderName: senderName,
-        createdAt: new Date()
-      }]);
-
       setNewMessage('');
-    } catch (err) {
-      console.error('Error sending message:', err);
-      setError("Failed to send message");
     } finally {
       setIsSending(false);
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="chat-container">
+        <div className="loading-spinner">Loading chat...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="chat-container">
-      {error && <div className="error-banner">{error}</div>}
-      
       <div className="chat-messages">
         {messages.length === 0 ? (
           <div className="no-messages">No messages yet. Start the conversation!</div>
@@ -183,18 +197,6 @@ export default function Chat() {
           {isSending ? 'Sending...' : 'Send'}
         </button>
       </form>
-      
-      <Footer />
-    </div>
-  );
-}
-
-function Footer() {
-  const navigate = useNavigate();
-  
-  return (
-    <div className="footer">
-      
     </div>
   );
 }
