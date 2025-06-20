@@ -1,0 +1,285 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Background */
+.background {
+  background-color: #F1E7AB;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Container */
+.container {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* User Header Section */
+.user-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.user-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffebd5;
+  border-radius: 10px;
+  padding: 15px;
+  min-width: 150px;
+}
+
+.user-image {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.user-name {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+
+.user-info {
+  background-color: #ffebd5;
+  border-radius: 10px;
+  padding: 15px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.user-info-item {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+/* Info Rows */
+.info-row {
+  background-color: #FFED87;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.info-row label {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.info-row span {
+  color: black;
+  font-size: 16px;
+  text-align: right;
+}
+
+.checkbox-row {
+  padding: 8px 15px;
+}
+
+.checkbox-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: black;
+}
+
+/* Year Selector */
+.year-selector {
+  background-color: #FFED87;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  padding: 3px;
+  width: 100%;
+}
+
+.year-select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: black;
+  outline: none;
+}
+
+/* Hive Table */
+.hive-table {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table-header {
+  display: flex;
+  background-color: #FFED87;
+  padding: 10px 0;
+}
+
+.header-cell {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.table-row {
+  display: flex;
+  background-color: #ffebd5;
+  padding: 10px 0;
+  border-bottom: 1px solid #FFED87;
+}
+
+.table-cell {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+}
+
+.no-hives {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffebd5;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Buttons */
+.messages-button {
+  background-color: #FFE449;
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  width: 100%;
+  margin: 20px 0;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  color: black;
+  transition: background-color 0.3s;
+}
+
+.messages-button:hover {
+  background-color: #FFD700;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.edit-button,
+.delete-button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-button {
+  background-color: #FFED87;
+  color: black;
+}
+
+.delete-button {
+  background-color: #FF6B6B;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #FFE449;
+}
+
+.delete-button:hover {
+  background-color: #FF5252;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f2f2f2;
+  height: 60px;
+  padding: 0 10px;
+}
+
+.footer-button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.footer-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 5px;
+  object-fit: contain;
+}
+
+.footer-button span {
+  font-size: 12px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .user-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .user-image-container,
+  .user-info {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px;
+  }
+
+  .footer-button {
+    min-width: 20%;
+    margin: 5px 0;
+  }
+}

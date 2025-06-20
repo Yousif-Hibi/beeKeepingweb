@@ -1,0 +1,88 @@
+/* styles.css */
+.background {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 600px;
+  justify-content: center;
+}
+
+.square {
+  flex: 1;
+  aspect-ratio: 1/1;
+  background-color: #FFD700;
+  border-radius: 10px;
+  margin: 0 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 3.84px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  border: none;
+  max-width: 200px;
+}
+
+.square span {
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #f8f8f8;
+  width: 100%;
+}
+
+.footer-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.footer-button span {
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* For browsers that don't support aspect-ratio */
+@supports not (aspect-ratio: 1/1) {
+  .square::before {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  .square span {
+    position: absolute;
+  }
+}

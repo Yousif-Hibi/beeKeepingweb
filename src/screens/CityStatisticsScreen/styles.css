@@ -1,0 +1,175 @@
+/* styles.css */
+.city-stats-container {
+    background-color: #fefcf1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.city-stats-container h1 {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+    background-color: #f9e6b9;
+    padding: 15px;
+    border-radius: 0 100px 100px 0;
+    width: 80%;
+    max-width: 500px;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.legend-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.legend-item::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 8px;
+    background-color: var(--color);
+}
+
+.city-name {
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+.city-count {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #f2f2f2;
+    height: 60px;
+    padding: 0 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footer button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    height: 100%;
+    transition: background-color 0.3s;
+    font-size: 12px;
+}
+
+.footer button:hover {
+    background-color: #e6e6e6;
+}
+
+/* Color classes for legend items - add more as needed */
+.color-1 {
+    --color: #FF3E3E;
+}
+
+.color-2 {
+    --color: #FF9F1C;
+}
+
+.color-3 {
+    --color: #FFCD3C;
+}
+
+.color-4 {
+    --color: #8BE84B;
+}
+
+.color-5 {
+    --color: #27AE60;
+}
+
+.color-6 {
+    --color: #23C3C3;
+}
+
+.color-7 {
+    --color: #2979FF;
+}
+
+.color-8 {
+    --color: #8B5BE8;
+}
+
+.color-9 {
+    --color: #D663FF;
+}
+
+.color-10 {
+    --color: #FF3E96;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .city-stats-container h1 {
+        width: 90%;
+        font-size: 22px;
+        padding: 12px;
+    }
+
+    .chart-container {
+        padding: 15px;
+    }
+
+    .legend-container {
+        gap: 10px;
+    }
+
+    .legend-item {
+        padding: 6px 12px;
+    }
+
+    .footer {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px;
+    }
+
+    .footer button {
+        flex: 0 0 33%;
+        margin-bottom: 5px;
+    } }

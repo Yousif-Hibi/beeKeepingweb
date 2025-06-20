@@ -1,0 +1,145 @@
+/* styles.css */
+.stats-container {
+  background-image: url('../../assets/stats.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.stats-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.stats-controls {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.stats-controls select {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+}
+
+.stats-results {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-item h3 {
+  font-weight: bold;
+  margin-right: 10px;
+  flex: 1;
+  color: #333;
+}
+
+.stat-item p {
+  flex: 1;
+  text-align: right;
+  font-size: 16px;
+  color: #555;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f2f2f2;
+  height: 60px;
+  padding: 0 10px;
+}
+
+.footer button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  height: 100%;
+  transition: background-color 0.3s;
+  font-size: 12px;
+}
+
+.footer button:hover {
+  background-color: #e6e6e6;
+}
+
+/* If you're using icons in the footer */
+.footer-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 5px;
+}
+
+/* Chart container styles */
+.chart-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stats-results {
+    padding: 15px;
+  }
+
+  .stat-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stat-item p {
+    text-align: left;
+    margin-top: 5px;
+  }
+
+  .footer {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px;
+  }
+
+  .footer button {
+    flex: 0 0 33%;
+    margin-bottom: 5px;
+  }
+}

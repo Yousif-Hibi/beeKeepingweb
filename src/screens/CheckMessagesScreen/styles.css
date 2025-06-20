@@ -1,0 +1,142 @@
+/* styles.css */
+.container {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #FFFFFF;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  padding: 20px;
+}
+
+.messages-list {
+  flex: 1;
+  margin-bottom: 60px;
+  /* Space for footer */
+}
+
+.message-item {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.message-item:hover {
+  background-color: #f0f0f0;
+}
+
+.message-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.message-time {
+  font-size: 12px;
+  color: #888888;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f2f2f2;
+  height: 60px;
+  padding: 0 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer-button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  height: 100%;
+  transition: background-color 0.3s;
+  font-size: 12px;
+}
+
+.footer-button:hover {
+  background-color: #e6e6e6;
+}
+
+.footer-button span {
+  margin-top: 5px;
+}
+
+/* Loading animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #000000;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .message-item {
+    padding: 12px;
+  }
+
+  .footer {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px;
+  }
+
+  .footer-button {
+    flex: 0 0 25%;
+    margin-bottom: 5px;
+  }
+}

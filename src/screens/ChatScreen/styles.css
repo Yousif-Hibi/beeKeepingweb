@@ -1,0 +1,143 @@
+/* styles.css */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    margin-bottom: 60px;
+    /* Space for input */
+}
+
+.message {
+    max-width: 70%;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 18px;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.message.sent {
+    background-color: #FFD700;
+    margin-left: auto;
+    border-bottom-right-radius: 0;
+    color: black;
+}
+
+.message.received {
+    background-color: #e5e5ea;
+    margin-right: auto;
+    border-bottom-left-radius: 0;
+    color: black;
+}
+
+.chat-input {
+    position: fixed;
+    bottom: 60px;
+    /* Above footer */
+    left: 0;
+    right: 0;
+    display: flex;
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-right: 10px;
+    outline: none;
+}
+
+.chat-input button {
+    padding: 10px 20px;
+    background-color: #FFD700;
+    border: none;
+    border-radius: 20px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.chat-input button:hover {
+    background-color: #e6c200;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #f2f2f2;
+    height: 60px;
+    padding: 0 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    height: 100%;
+    transition: background-color 0.3s;
+    font-size: 12px;
+}
+
+.footer button:hover {
+    background-color: #e6e6e6;
+}
+
+/* Timestamp styling */
+.message-time {
+    font-size: 10px;
+    color: #666;
+    margin-top: 5px;
+    text-align: right;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .message {
+        max-width: 80%;
+    }
+
+    .chat-input {
+        padding: 8px;
+    }
+
+    .chat-input input {
+        padding: 8px 12px;
+    }
+
+    .chat-input button {
+        padding: 8px 15px;
+    }
+
+    .footer {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px;
+    }
+
+    .footer button {
+        flex: 0 0 20%;
+        margin-bottom: 5px;
+    } }

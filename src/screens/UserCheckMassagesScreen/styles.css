@@ -1,0 +1,42 @@
+/* Container for the whole chat */
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  /* Message bubble from the sender */
+  .sender-message-container {
+    background-color: #DCF8C5;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    align-self: flex-end;
+    margin-right: 10px;
+    max-width: 70%;
+  }
+  
+  /* Message bubble from the receiver */
+  .receiver-message-container {
+    background-color: #F4F4F4;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+    margin-left: 10px;
+    max-width: 70%;
+  }
+  
+  /* Message text content */
+  .message-text {
+    font-size: 16px;
+    color: black;
+  }
+  
+  /* Timestamp text */
+  .timestamp {
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+  }
+  
